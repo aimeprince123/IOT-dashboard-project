@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "author": "Anonymous maker",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": 202.2, "left": 172.2, "attrs": {} },
+    { "type": "board-mfrc522", "id": "rfid1", "top": 102.95, "left": -169.36, "attrs": {} },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": 413, "left": -115.2, "attrs": {} },
+    {
+      "type": "wokwi-lcd2004",
+      "id": "lcd1",
+      "top": -89.6,
+      "left": 140,
+      "attrs": { "pins": "i2c" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": 309.6,
+      "left": 30.6,
+      "attrs": { "volume": "0.1" }
+    },
+    { "type": "wokwi-servo", "id": "servo1", "top": 286, "left": -172.8, "attrs": {} }
+  ],
+  "connections": [
+    [ "lcd1:SCL", "uno:A5", "green", [ "h0" ] ],
+    [ "uno:A4", "lcd1:SDA", "green", [ "v0" ] ],
+    [ "lcd1:VCC", "uno:5V", "red", [ "h0" ] ],
+    [ "lcd1:GND", "uno:GND.3", "black", [ "h0" ] ],
+    [ "rfid1:3.3V", "uno:3.3V", "green", [ "h0" ] ],
+    [ "rfid1:GND", "uno:GND.2", "black", [ "h0" ] ],
+    [ "rfid1:RST", "uno:9", "green", [ "h0" ] ],
+    [ "rfid1:SDA", "uno:10", "green", [ "h451.2", "v9.6" ] ],
+    [ "rfid1:SCK", "uno:13", "green", [ "h0" ] ],
+    [ "rfid1:MOSI", "uno:11", "green", [ "h0" ] ],
+    [ "rfid1:MISO", "uno:12", "green", [ "h0" ] ],
+    [ "relay1:IN", "uno:7", "green", [ "h0" ] ],
+    [ "relay1:GND", "uno:GND.3", "black", [ "h0" ] ],
+    [ "relay1:VCC", "uno:5V", "red", [ "h0" ] ],
+    [ "servo1:PWM", "uno:5", "green", [ "h0" ] ],
+    [ "servo1:V+", "uno:5V", "red", [ "h0" ] ],
+    [ "servo1:GND", "uno:GND.2", "black", [ "h0" ] ]
+  ],
+  "dependencies": {}
+}
