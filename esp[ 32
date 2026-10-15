@@ -1,0 +1,64 @@
+const int trigPin = 9;
+const int echoPin = 10;
+const int relayPin = 7;
+
+const int pirPin = 2;
+const int ledPin = 4;
+
+long duration;
+float distance;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(relayPin, OUTPUT);
+
+  pinMode(pirPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+
+  Serial.begin(9600);
+
+  // Assumes an active-HIGH relay module
+  digitalWrite(relayPin, LOW);
+  digitalWrite(ledPin, LOW);
+}
+
+void loop() {
+  // Measure distance using ultrasonic sensor
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH, 30000);
+
+  if (duration == 0) {
+    distance = -1;
+  } else {
+    distance = duration * 0.0343 / 2;
+  }
+
+  // Control relay based on distance
+  if (distance > 0 && distance <= 20) {
+    digitalWrite(relayPin, HIGH);
+    Serial.println("Object detected: Relay ON");
+  } else {
+    digitalWrite(relayPin, LOW);
+    Serial.println("Object far away: Relay OFF");
+  }
+
+  // Control LED using PIR motion sensor
+  int motion = digitalRead(pirPin);
+
+  if (motion == HIGH) {
+    digitalWrite(ledPin, HIGH);
+    Serial.println("Motion detected: LED ON");
+  } else {
+    digitalWrite(ledPin, LOW);
+    Serial.println("No motion: LED OFF");
+  }
+
+  delay(200);
+}
