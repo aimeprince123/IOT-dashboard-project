@@ -1,0 +1,161 @@
+#include "BluetoothSerial.h"
+
+BluetoothSerial SerialBT;
+
+// ESP32 pins
+const int trigPin = 5;
+const int echoPin = 18;
+const int relayPin = 23;
+const int pirPin = 27;
+const int ledPin = 19;
+
+// Sensor variables
+long duration;
+float distance = -1;
+int motion = 0;
+
+// Automatic/manual control modes
+bool relayAuto = true;
+bool ledAuto = true;
+
+bool relayState = false;
+bool ledState = false;
+
+unsigned long lastReport = 0;
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(relayPin, OUTPUT);
+  pinMode(pirPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+
+  digitalWrite(trigPin, LOW);
+  digitalWrite(relayPin, LOW);
+  digitalWrite(ledPin, LOW);
+
+  // Start Bluetooth
+  SerialBT.begin("ESP32_Sensor_Control");
+
+  Serial.println("Bluetooth started!");
+  Serial.println("Pair with ESP32_Sensor_Control");
+
+  SerialBT.println("ESP32 Sensor Control Ready");
+  SerialBT.println("Commands:");
+  SerialBT.println("RELAY ON");
+  SerialBT.println("RELAY OFF");
+  SerialBT.println("RELAY AUTO");
+  SerialBT.println("LED ON");
+  SerialBT.println("LED OFF");
+  SerialBT.println("LED AUTO");
+  SerialBT.println("STATUS");
+}
+
+void loop() {
+  // Receive Bluetooth commands
+  if (SerialBT.available()) {
+    String command = SerialBT.readStringUntil('\n');
+    command.trim();
+    command.toUpperCase();
+
+    if (command == "RELAY ON") {
+      relayAuto = false;
+      relayState = true;
+      SerialBT.println("Relay manually ON");
+    }
+    else if (command == "RELAY OFF") {
+      relayAuto = false;
+      relayState = false;
+      SerialBT.println("Relay manually OFF");
+    }
+    else if (command == "RELAY AUTO") {
+      relayAuto = true;
+      SerialBT.println("Relay automatic mode");
+    }
+    else if (command == "LED ON") {
+      ledAuto = false;
+      ledState = true;
+      SerialBT.println("LED manually ON");
+    }
+    else if (command == "LED OFF") {
+      ledAuto = false;
+      ledState = false;
+      SerialBT.println("LED manually OFF");
+    }
+    else if (command == "LED AUTO") {
+      ledAuto = true;
+      SerialBT.println("LED automatic mode");
+    }
+    else if (command == "STATUS") {
+      sendStatus();
+    }
+    else {
+      SerialBT.println("Unknown command");
+    }
+  }
+
+  // Measure ultrasonic distance
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH, 30000);
+
+  if (duration == 0) {
+    distance = -1;
+  } else {
+    distance = duration * 0.0343 / 2.0;
+  }
+
+  // Read PIR sensor
+  motion = digitalRead(pirPin);
+
+  // Automatic relay control
+  if (relayAuto) {
+    relayState = (distance > 0 && distance <= 20);
+  }
+
+  // Automatic LED control
+  if (ledAuto) {
+    ledState = (motion == HIGH);
+  }
+
+  // Apply outputs
+  // Assumes an active-HIGH relay module
+  digitalWrite(relayPin, relayState ? HIGH : LOW);
+  digitalWrite(ledPin, ledState ? HIGH : LOW);
+
+  // Send sensor readings over Bluetooth every second
+  if (millis() - lastReport >= 1000) {
+    lastReport = millis();
+    sendStatus();
+  }
+
+  delay(100);
+}
+
+void sendStatus() {
+  SerialBT.print("Distance: ");
+
+  if (distance > 0) {
+    SerialBT.print(distance, 1);
+    SerialBT.println(" cm");
+  } else {
+    SerialBT.println("No valid reading");
+  }
+
+  SerialBT.print("PIR Motion: ");
+  SerialBT.println(motion == HIGH ? "DETECTED" : "NONE");
+
+  SerialBT.print("Relay: ");
+  SerialBT.println(relayState ? "ON" : "OFF");
+
+  SerialBT.print("LED: ");
+  SerialBT.println(ledState ? "ON" : "OFF");
+
+  SerialBT.println("----------------");
+}
