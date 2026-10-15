@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+int main(void) {
+    int mark;
+    int pass = 0;
+    int fail = 0;
+    float average;
+    int total = 0;
+    int i;
+    
+
+    for (i = 1; i <=4; i++) {
+     printf("Enter marks for student %d: ", i );
+      scanf("%d", &mark);
+        total = total + mark;
+  if (mark >= 50) {
+            pass++;
+   } else {
+       fail++;
+        }
+
+    }
+            for(i=1;i<=4;i++){
+printf("\ntotal of students enter = %d\n", i);
+}
+
+average = total / 4;
+
+printf("\nTotal marks = %d\n", total);
+     printf("Average marks = %.2f\n", average);
+  printf("Number of passes = %d\n", pass);
+   printf("Number of failures = %d\n", fail);
+   
+
+    return 0;
+}
