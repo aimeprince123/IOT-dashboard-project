@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdMarket - Advertise Your Business</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">AdMarket<span>.</span></div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#products">Advertisements</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <a class="post-btn" href="#contact">Advertise Now</a>
+</header>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <p class="tagline">GROW YOUR BUSINESS ONLINE</p>
+        <h1>Make Your Business <span>Stand Out.</span></h1>
+        <p>
+            Promote your products and services to more customers.
+            Discover great deals and support local businesses.
+        </p>
+        <a href="#products" class="main-btn">Explore Ads</a>
+        <a href="#contact" class="secondary-btn">Post an Advertisement</a>
+    </div>
+</section>
+
+<section class="features">
+    <div>
+        <h3>Easy Advertising</h3>
+        <p>Promote your products easily.</p>
+    </div>
+    <div>
+        <h3>Reach More People</h3>
+        <p>Showcase your business online.</p>
+    </div>
+    <div>
+        <h3>Direct Contact</h3>
+        <p>Connect with interested customers.</p>
+    </div>
+</section>
+
+<section class="products" id="products">
+    <div class="section-heading">
+        <p class="tagline">OUR MARKETPLACE</p>
+        <h2>Featured Advertisements</h2>
+        <p>Explore products and services advertised by businesses.</p>
+    </div>
+
+    <input
+        type="text"
+        id="search"
+        placeholder="Search for products or services..."
+    >
+
+    <div class="filters">
+        <button class="filter active" data-category="all">All</button>
+        <button class="filter" data-category="electronics">Electronics</button>
+        <button class="filter" data-category="fashion">Fashion</button>
+        <button class="filter" data-category="services">Services</button>
+    </div>
+
+    <div class="product-grid" id="product-grid">
+
+        <article class="product-card" data-category="electronics">
+            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=700"
+                 alt="Smartphone">
+            <div class="product-info">
+                <span class="category">Electronics</span>
+                <h3>Smartphone</h3>
+                <p>Modern smartphone for communication and entertainment.</p>
+                <div class="product-bottom">
+                    <strong>150,000 RWF</strong>
+                    <a href="#contact" class="details-btn">Inquire</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card" data-category="fashion">
+            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=700"
+                 alt="Fashion T-shirt">
+            <div class="product-info">
+                <span class="category">Fashion</span>
+                <h3>Stylish T-Shirt</h3>
+                <p>Comfortable and fashionable clothing for everyday use.</p>
+                <div class="product-bottom">
+                    <strong>10,000 RWF</strong>
+                    <a href="#contact" class="details-btn">Inquire</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card" data-category="electronics">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=700"
+                 alt="Headphones">
+            <div class="product-info">
+                <span class="category">Electronics</span>
+                <h3>Wireless Headphones</h3>
+                <p>Enjoy music with comfortable wireless headphones.</p>
+                <div class="product-bottom">
+                    <strong>25,000 RWF</strong>
+                    <a href="#contact" class="details-btn">Inquire</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card" data-category="services">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=700"
+                 alt="Computer services">
+            <div class="product-info">
+                <span class="category">Services</span>
+                <h3>Web Design Services</h3>
+                <p>Professional websites for businesses and organizations.</p>
+                <div class="product-bottom">
+                    <strong>From 50,000 RWF</strong>
+                    <a href="#contact" class="details-btn">Inquire</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card" data-category="fashion">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700"
+                 alt="Sports shoes">
+            <div class="product-info">
+                <span class="category">Fashion</span>
+                <h3>Sports Shoes</h3>
+                <p>Comfortable shoes for sports and everyday activities.</p>
+                <div class="product-bottom">
+                    <strong>30,000 RWF</strong>
+                    <a href="#contact" class="details-btn">Inquire</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-card" data-category="services">
+            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=700"
+                 alt="Business team">
+            <div class="product-info">
+                <span class="category">Services</span>
+                <h3>Business Promotion</h3>
+                <p>Promote your company and reach new customers.</p>
+                <div class="product-bottom">
+                    <strong>Contact for price</strong>
+                    <a href="#contact" class="details-btn">Inquire</a>
+                </div>
+            </div>
+        </article>
+
+    </div>
+    <p id="no-results" hidden>No advertisements found.</p>
+</section>
+
+<section class="about" id="about">
+    <div>
+        <p class="tagline">ABOUT ADMARKET</p>
+        <h2>Advertising Made Simple</h2>
+        <p>
+            AdMarket is a sample advertising platform designed to help
+            businesses showcase products, promote services, and connect
+            with potential customers.
+        </p>
+    </div>
+</section>
+
+<section class="contact" id="contact">
+    <div class="section-heading">
+        <p class="tagline">GET IN TOUCH</p>
+        <h2>Advertise Your Business</h2>
+        <p>Complete this form to prepare an advertising inquiry.</p>
+    </div>
+
+    <form id="contact-form">
+        <input type="text" id="name" placeholder="Your full name" required>
+        <input type="email" id="email" placeholder="Your email address" required>
+        <input type="text" id="business" placeholder="Business or product name" required>
+        <textarea id="message" placeholder="Describe your advertisement" required></textarea>
+        <button type="submit" class="main-btn">Send Inquiry</button>
+    </form>
+
+    <p id="form-result" role="status"></p>
+    <a class="whatsapp"
+       href="https://wa.me/250700000000"
+       target="_blank"
+       rel="noopener">
+       Contact us on WhatsApp
+    </a>
+    <p class="small-note">
+        Replace the sample WhatsApp number with your own number.
+    </p>
+</section>
+
+<footer>
+    <div class="logo">AdMarket<span>.</span></div>
+    <p>Promote your business. Reach more customers.</p>
+    <p>&copy; 2026 AdMarket. All rights reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
