@@ -1,0 +1,61 @@
+
+void setup() {
+  Serial.begin(9600);
+
+  Serial.println("================================");
+  Serial.println(" SMART ELECTRICITY BILLING SYSTEM");
+  Serial.println("================================");
+  Serial.println("Enter electricity units consumed:");
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    int units = Serial.parseInt();
+
+    while (Serial.available() > 0) {
+      Serial.read();
+    }
+
+    if (units < 0 || units > 1000) {
+      Serial.println("ERROR: Invalid input!");
+      Serial.println("Enter units between 0 and 1000.");
+    }
+    else {
+      float bill = 0;
+
+      if (units <= 50) {
+        bill = units * 100;
+      }
+      else if (units <= 150) {
+        bill = (50 * 100) + ((units - 50) * 150);
+      }
+      else {
+        bill = (50 * 100) + (100 * 150)
+               + ((units - 150) * 200);
+      }
+
+      Serial.println("------ BILL DETAILS ------");
+      Serial.print("Units consumed: ");
+      Serial.println(units);
+
+      Serial.print("Total bill: ");
+      Serial.print(bill);
+      Serial.println(" RWF");
+
+      if (units <= 50) {
+        Serial.println("Category: Low consumption");
+      }
+      else if (units <= 150) {
+        Serial.println("Category: Moderate consumption");
+      }
+      else {
+        Serial.println("Category: High consumption");
+      }
+
+      Serial.println("--------------------------");
+    }
+
+    Serial.println();
+    Serial.println("Enter electricity units consumed:");
+  }
+}
